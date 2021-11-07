@@ -1,20 +1,21 @@
 pipeline {
-    agent any
-
+   
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+               sh " docker build -t Dockerfile "
             }
         }
-        stage('Test') {
+        stage('run') {
             steps {
-                echo 'Testing..'
+                 sh " docker run -rm Dockerfile "
             }
         }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
+                echo " deploying with ${SERVER_CRED}"
+                sh "${SERVER_CRED}"
             }
         }
     }
